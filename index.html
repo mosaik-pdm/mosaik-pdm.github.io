@@ -1,0 +1,586 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>MOSAIK Project Page</title>
+<script>document.documentElement.className += ' js';</script>
+<meta name="description" content="MOSAIK varies the patch size across image regions and denoising steps of a pixel-space diffusion transformer. At 70% fewer FLOPs and 83% fewer tokens it matches full-compute PixelDiT on GenEval.">
+<meta name="theme-color" content="#ffffff">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='31' height='31' fill='%233A66CF'/%3E%3Cg fill='%2317A091'%3E%3Crect x='33' y='0' width='14.5' height='14.5'/%3E%3Crect x='33' y='16.5' width='14.5' height='14.5'/%3E%3Crect x='49.5' y='0' width='14.5' height='14.5'/%3E%3Crect x='49.5' y='16.5' width='14.5' height='14.5'/%3E%3Crect x='0' y='33' width='14.5' height='14.5'/%3E%3Crect x='0' y='49.5' width='14.5' height='14.5'/%3E%3Crect x='16.5' y='33' width='14.5' height='14.5'/%3E%3Crect x='16.5' y='49.5' width='14.5' height='14.5'/%3E%3C/g%3E%3Cg fill='%23E8743B'%3E%3Crect x='33' y='33' width='6.25' height='6.25'/%3E%3Crect x='33' y='41.25' width='6.25' height='6.25'/%3E%3Crect x='33' y='49.5' width='6.25' height='6.25'/%3E%3Crect x='33' y='57.75' width='6.25' height='6.25'/%3E%3Crect x='41.25' y='33' width='6.25' height='6.25'/%3E%3Crect x='41.25' y='41.25' width='6.25' height='6.25'/%3E%3Crect x='41.25' y='49.5' width='6.25' height='6.25'/%3E%3Crect x='41.25' y='57.75' width='6.25' height='6.25'/%3E%3Crect x='49.5' y='33' width='6.25' height='6.25'/%3E%3Crect x='49.5' y='41.25' width='6.25' height='6.25'/%3E%3Crect x='49.5' y='49.5' width='6.25' height='6.25'/%3E%3Crect x='49.5' y='57.75' width='6.25' height='6.25'/%3E%3Crect x='57.75' y='33' width='6.25' height='6.25'/%3E%3Crect x='57.75' y='41.25' width='6.25' height='6.25'/%3E%3Crect x='57.75' y='49.5' width='6.25' height='6.25'/%3E%3Crect x='57.75' y='57.75' width='6.25' height='6.25'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<link rel="stylesheet" href="static/css/style.css">
+<div id="top"></div>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- ============================ top navigation ============================ -->
+<header class="nav">
+  <div class="nav-in">
+    <nav aria-label="Sections">
+      <ul>
+        <li class="d-only"><a href="#abstract">Abstract</a></li>
+        <li class="d-only"><a href="#motivation">Motivation</a></li>
+        <li><a href="#method">Method</a></li>
+        <li><a href="#layouts">Layouts</a></li>
+        <li><a href="#results">Results</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ================================ hero ================================= -->
+<section class="hero wrap">
+  <h1 class="title">
+    <span class="wordmark"><svg class="wm-mark" viewBox="0 0 64 64" aria-hidden="true"><rect width="31" height="31" fill="#3A66CF"/><g fill="#17A091"><rect x="33" y="0" width="14.5" height="14.5"/><rect x="33" y="16.5" width="14.5" height="14.5"/><rect x="49.5" y="0" width="14.5" height="14.5"/><rect x="49.5" y="16.5" width="14.5" height="14.5"/><rect x="0" y="33" width="14.5" height="14.5"/><rect x="0" y="49.5" width="14.5" height="14.5"/><rect x="16.5" y="33" width="14.5" height="14.5"/><rect x="16.5" y="49.5" width="14.5" height="14.5"/></g><g fill="#E8743B"><rect x="33" y="33" width="6.25" height="6.25"/><rect x="33" y="41.25" width="6.25" height="6.25"/><rect x="33" y="49.5" width="6.25" height="6.25"/><rect x="33" y="57.75" width="6.25" height="6.25"/><rect x="41.25" y="33" width="6.25" height="6.25"/><rect x="41.25" y="41.25" width="6.25" height="6.25"/><rect x="41.25" y="49.5" width="6.25" height="6.25"/><rect x="41.25" y="57.75" width="6.25" height="6.25"/><rect x="49.5" y="33" width="6.25" height="6.25"/><rect x="49.5" y="41.25" width="6.25" height="6.25"/><rect x="49.5" y="49.5" width="6.25" height="6.25"/><rect x="49.5" y="57.75" width="6.25" height="6.25"/><rect x="57.75" y="33" width="6.25" height="6.25"/><rect x="57.75" y="41.25" width="6.25" height="6.25"/><rect x="57.75" y="49.5" width="6.25" height="6.25"/><rect x="57.75" y="57.75" width="6.25" height="6.25"/></g></svg><span>MOSAIK</span></span>
+    <span class="subtitle">Multi-Patch Content-Aware Spatial Allocation of Image&nbsp;Tokens for Efficient Generation</span>
+  </h1>
+
+  <p class="authors">
+    <span class="au">Mohammadreza Hami<sup>*</sup></span>,
+    <span class="au">Mohammadreza Samadi<sup>*</sup></span>,
+    <span class="au">Chao Gao</span>,
+    <span class="au">Negar Hassanpour</span>
+  </p>
+  <p class="affil"><span>Huawei Technologies Canada</span> <span class="eqc"><sup>*</sup>Equal contribution</span></p>
+  <p class="contact mono">mohammadreza.hami@h-partners.com &middot; {mohammadreza.samadi1, chao.gao4, negar.hassanpour2}@huawei.com</p>
+
+  <!-- Venue line (optional): add <p class="venue">…</p> here once the paper is accepted. -->
+
+  <div class="links">
+    <a class="pill" href="https://arxiv.org/html/2608.05450v1" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18v4H3zM5 9v10h14V9M10 13h4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      arXiv</a>
+    <!-- TODO: code repository link. Add href="https://..." (and target="_blank" rel="noopener"), then drop class pill-off, aria-disabled and title. -->
+    <a class="pill pill-off" aria-disabled="true" title="Code coming soon">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Code</a>
+  </div>
+</section>
+
+<!-- =============================== teaser ================================ -->
+<section class="wrap teaser" aria-label="Teaser">
+  <figure class="teaser-fig">
+    <div class="teaser-media" id="teaser">
+      <picture class="teaser-anim">
+        <source media="(max-width: 600px) and (prefers-reduced-motion: reduce)" srcset="static/img/teaser_m_still.webp" width="720" height="804">
+        <source media="(max-width: 600px)" srcset="static/img/teaser_m.webp" width="720" height="804">
+        <source media="(prefers-reduced-motion: reduce)" srcset="static/img/teaser_still.webp">
+        <source type="image/webp" srcset="static/img/teaser.webp">
+        <img src="static/gif/teaser.gif" width="1200" height="440"
+             alt="Generations shown over 50 denoising steps. White outlines over each image mark the patch size per region: fine p16 patches settle on the animal, coarse p64 patches cover the background. A bar under each image shows 1,024 of 4,096 tokens in use.">
+      </picture>
+      <picture class="teaser-still" aria-hidden="true">
+        <source media="(max-width: 600px)" srcset="static/img/teaser_m_still.webp" width="720" height="804">
+        <img src="static/img/teaser_still.webp" width="1200" height="440" alt="">
+      </picture>
+      <button type="button" class="teaser-toggle" aria-pressed="false" aria-label="Pause animation">
+        <svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14M16 5v14" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>
+        <svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5l12 7-12 7z" fill="currentColor"/></svg>
+      </button>
+    </div>
+    <figcaption>
+      MOSAIK re-plans the patch layout at every denoising step: fine
+      <span class="chip a">p16</span> patches where coarsening would do the most damage, coarse
+      <span class="chip b">p32</span> and <span class="chip c">p64</span> patches elsewhere.
+      Token budget: 1,024 tokens per step (the &asymp;60% fewer-FLOPs tier).
+      <span class="cap-note">The budget applies to steps 2&ndash;50; step 1 runs at full p16, so the mean is 1,085 tokens per step at a 1,024-token budget (74% fewer) and 683 at a 614-token budget (83% fewer).</span>
+    </figcaption>
+  </figure>
+
+  <ul class="stats" aria-label="Key numbers">
+    <li><span class="num">70%</span><span class="lbl">fewer FLOPs</span><span class="sub">whole denoiser, incl. the fixed pixel decoder</span></li>
+    <li><span class="num">83%</span><span class="lbl">fewer tokens</span><span class="sub">683 vs. 4,096 tokens per step, mean over all 50 steps</span></li>
+    <li><span class="num">+0.10</span><span class="lbl">GenEval over DDiT</span><span class="sub">temporal patch scheduling at the same &asymp;70% FLOPs cut: 0.74 vs. 0.64</span></li>
+    <li><span class="num">2.59&times;</span><span class="lbl">faster end to end</span><span class="sub">8.4 s vs. 21.8 s per 1024&sup2; image, one GB10, &asymp;70% tier</span></li>
+  </ul>
+</section>
+
+<!-- ============================== abstract =============================== -->
+<section class="band" id="abstract">
+  <div class="wrap">
+    <h2 class="sec-l">Abstract</h2>
+    <div class="abs-grid">
+    <div class="prose abstract">
+      <p>Pixel-space diffusion models avoid the reconstruction ceiling of latent diffusion models by generating directly in image space.
+      However, their substantially higher token count makes generation expensive due to the quadratic complexity of self-attention.
+      Several existing efficiency methods reduce this cost by using larger patches at selected denoising steps, thereby representing the image with fewer tokens.
+      Yet, each step still uses a single patch size uniformly across the entire image,
+      overlooking that different regions suffer different fidelity losses when coarsened.</p>
+      <p>We introduce <strong>MOSAIK, a damage-guided framework that varies patch size across regions and denoising steps.</strong>
+      MOSAIK adapts the PixelDiT backbone to generate arbitrary heterogeneous patch layouts, and
+      a lightweight predictor uses intermediate denoising features to estimate the fidelity loss caused by coarsening each region.
+      Given a token budget, our damage-guided layout predictor assigns fine patches to sensitive regions and coarse patches elsewhere.
+      Remarkably, <strong>while reducing FLOPs by 70% and token count by 83%, MOSAIK matches the full-compute PixelDiT on GenEval and its DPG-Bench score drops by only 1.0&nbsp;point.</strong>
+      Compared to diverse efficiency paradigms, including temporal patch scheduling and feature caching, our approach delivers highly competitive performance at moderate budgets and consistently outperforms these baselines in highly constrained compute regimes.</p>
+    </div>
+    <figure class="abs-fig">
+      <div class="split">
+        <img src="static/img/abs_split.webp" width="1024" height="1024" loading="lazy"
+             alt="One wolf image split down the middle. Left half: every 64 by 64 region at p16, a dense uniform grid of 4,096 tokens. Right half: the MOSAIK layout at a 1,024-token budget, with fine patches around the eyes and nose and coarse patches on the fur and background.">
+        <span class="split-tag l mono">Uniform p16 &middot; 4,096 tokens</span>
+        <span class="split-tag r mono">MOSAIK &middot; 1,024 tokens</span>
+      </div>
+      <figcaption>Same prompt and seed. Left: every region at <span class="chip a">p16</span>. Right: MOSAIK spends a 1,024-token budget on
+        <span class="chip a">p16</span> where detail is densest and <span class="chip b">p32</span>/<span class="chip c">p64</span> elsewhere (layout at step 41 of 50).</figcaption>
+    </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============================= motivation ============================== -->
+<section class="wrap sec" id="motivation">
+  <h2 class="sec-l">Motivation</h2>
+
+  <div class="duo">
+    <div class="duo-text">
+      <h3 class="lead">Bigger patches save compute but can lose detail</h3>
+      <p class="prose">Each step from p16 to p32 to p64 cuts the tokens by 4&times;. Applied to the whole image, larger patches can discard local structure and sharp boundaries: our model run at uniform p64 scores 0.65 GenEval (0.73 at uniform p16; PixelDiT 0.74).</p>
+    </div>
+    <figure class="fig duo-fig">
+    <a class="fig-link" href="static/img/fig_zoom.webp" target="_blank" rel="noopener" aria-label="Open the zoom figure at full size">
+      <img src="static/img/fig_zoom.webp" width="2096" height="1648" loading="lazy"
+           alt="Tiger, hummingbird and wolf, each with one crop generated at uniform p16, p32 and p64. The p64 crops lose stripes, throat feathers and fur detail.">
+    </a>
+    <figcaption>The same crop at uniform p16 (PixelDiT), p32 and p64 (our multi-patch model at a single patch size), same seed.</figcaption>
+  </figure>
+  </div>
+
+  <h3 class="lead">Regions differ in how much coarsening hurts</h3>
+  <p class="prose">In this image, coarsening would damage the bee and barely touch the flat background, yet a uniform patch size pays the same for both.</p>
+  <figure class="fig fig-wide">
+    <a class="fig-link" href="static/img/fig_regions.webp" target="_blank" rel="noopener" aria-label="Open the damage figure at full size">
+      <picture>
+        <source media="(max-width: 600px)" srcset="static/img/fig_regions_m.webp" width="1220" height="3724">
+        <img src="static/img/fig_regions.webp" width="3071" height="1330" loading="lazy"
+             alt="Honeybee on a daisy with a 16 by 16 region grid. The layout predictor estimates damage of 100, 95 and 56 percent of the worst region for three detailed regions on the bee and the flower, and about zero for three flat background regions. A cumulative curve shows that in this image 7 percent of regions hold half of the predicted damage.">
+      </picture>
+    </a>
+    <figcaption>Layout-predictor estimate of per-region damage (how much uniform p64 would deviate from the p16 teacher), mean over steps 10&ndash;45 of one run.</figcaption>
+  </figure>
+</section>
+
+<!-- =============================== method ================================ -->
+<section class="sec sec-band" id="method">
+<div class="wrap">
+  <h2 class="sec-l">Method</h2>
+
+  <h3 class="lead">One backbone for any layout, one predictor for where detail goes</h3>
+  <p class="prose">A 1024&sup2; image has 256 regions of 64&times;64 pixels, each tokenized as p16, p32 or p64 (16, 4 or 1 tokens). Two stages adapt PixelDiT to any layout; a third trains a separate layout predictor.</p>
+  <figure class="fig fig-wide">
+    <div class="fig-link fig-static">
+      <picture>
+        <source media="(max-width: 600px)" srcset="static/img/fig_training_m.webp" width="1428" height="5094">
+        <img src="static/img/fig_training.webp" width="3204" height="1757" loading="lazy"
+             alt="Three-stage training diagram. Stage 1: one uniform patch size per minibatch (p64, p32 or p16), self-distilled from the frozen p16 teacher. Stage 2: random mixed layouts with RoPE at patch centres. Stage 3: the generator is frozen and a layout predictor maps block-6 features to a 16 by 16 damage map, trained with a Huber loss.">
+      </picture>
+    </div>
+    <figcaption>Stages 1&ndash;2 self-distil a LoRA student from the frozen p16 teacher; Stage 3 freezes it and trains the layout predictor.</figcaption>
+  </figure>
+
+  <h3 class="lead">Inference: spend the budget where the damage is</h3>
+  <p class="prose">Step 1 runs at full p16. From step 2 on, the predictor reads the previous step's features and predicts the damage <i>d</i><sub><i>r</i></sub><sup><i>t</i></sup> of every region <i>r</i>. A greedy rule starts every region at p64 and applies the highest-priority refinement that still fits the token budget: p64&rarr;p32 costs 3 tokens with priority <i>d</i><sub><i>r</i></sub><sup><i>t</i></sup>/3, p32&rarr;p16 costs 12 tokens with priority <i>d</i><sub><i>r</i></sub><sup><i>t</i></sup>/12. Any budget works without retraining.</p>
+  <figure class="fig fig-wide">
+    <div class="fig-link fig-static">
+      <picture>
+        <source media="(max-width: 600px)" srcset="static/img/fig_infer_m.webp" width="965" height="1075">
+        <img src="static/img/fig_infer.webp" width="2547" height="742" loading="lazy"
+             alt="Inference on the tiger prompt at step 25. The layout predictor takes the prompt embedding, the noise level and block-6 features from the previous step and predicts a 16 by 16 damage map. Greedy allocation at a budget of 1,024 tokens starts all regions at p64 and applies p64 to p32 (plus 3 tokens, priority d over 3) and p32 to p16 (plus 12 tokens, priority d over 12) refinements best-first while they fit. The resulting layout covers 19 percent of the image with p16, 6 percent with p32 and 75 percent with p64.">
+      </picture>
+    </div>
+    <figcaption>One step on the tiger prompt with a 1,024-token budget (<i>t</i>&nbsp;=&nbsp;25).</figcaption>
+  </figure>
+</div>
+</section>
+
+<!-- ========================== layouts in action ========================== -->
+<section class="wrap sec" id="layouts">
+  <h2 class="sec-l">Layouts in action</h2>
+
+  <!-- ---------- viewer 1: layout across denoising ---------- -->
+  <h3 class="lead" id="evolve-title">The layout is re-planned at every step</h3>
+  <p class="prose">Play or scrub the 50 steps. The image is the model's running estimate of the final image (x&#770;<sub>0</sub>). Step 1 is a full p16 warm-up. In the last steps p16 drops out: with a 1,024-token budget the final two steps are uniform p32; with 614 tokens the layout settles into a p32/p64 mix.</p>
+
+  <div class="viewer" id="evolve" role="group" aria-labelledby="evolve-title">
+    <div class="v-stage">
+      <div class="v-canvas">
+        <canvas width="960" height="960" role="img" aria-label="Denoising step viewer"></canvas>
+        <div class="v-hud" aria-hidden="true"><span class="hud-step">step 25/50</span><span class="hud-tok">1,024 / 1,024 tokens</span></div>
+        <div class="v-loading" hidden>loading&hellip;</div>
+      </div>
+    </div>
+    <div class="v-panel">
+      <div class="ctl">
+        <span class="ctl-l" id="ev-prompt-l">Prompt</span>
+        <div class="thumbs" role="group" aria-labelledby="ev-prompt-l" data-picker="evolve"></div>
+        <p class="v-prompt" aria-live="polite"></p>
+      </div>
+      <div class="ctl">
+        <span class="ctl-l" id="ev-budget-l">Budget</span>
+        <div class="seg" role="group" aria-labelledby="ev-budget-l">
+          <button type="button" data-tier="quarter" aria-pressed="true">&asymp;60% fewer FLOPs <span>1,024 tokens</span></button>
+          <button type="button" data-tier="headline" aria-pressed="false">&asymp;70% fewer FLOPs <span>614 tokens</span></button>
+        </div>
+      </div>
+      <div class="ctl">
+        <label class="ctl-l" for="ev-step">Step</label>
+        <div class="step-row">
+          <button type="button" class="play" aria-label="Play">
+            <svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5l12 7-12 7z" fill="currentColor"/></svg>
+            <svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14M16 5v14" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>
+          </button>
+          <input type="range" id="ev-step" min="1" max="50" step="1" value="25">
+          <output for="ev-step" class="mono ev-step-o">25</output>
+        </div>
+      </div>
+      <div class="ctl">
+        <span class="ctl-l">Image area by patch size, per step</span>
+        <div class="spark" aria-hidden="true">
+          <svg viewBox="0 0 300 64" preserveAspectRatio="none"><g class="spark-areas"></g><line class="spark-cur" x1="0" x2="0" y1="0" y2="64"/></svg>
+        </div>
+        <div class="spark-x mono" aria-hidden="true"><span>1</span><span>25</span><span>50</span></div>
+        <ul class="shares mono" aria-live="off">
+          <li><span class="sw a"></span>p16 <b data-k="a">0%</b></li>
+          <li><span class="sw b"></span>p32 <b data-k="b">0%</b></li>
+          <li><span class="sw c"></span>p64 <b data-k="c">0%</b></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <noscript>
+    <figure class="fig fig-nojs"><img src="static/gif/evolve_tiger_quarter.gif" width="480" height="480" alt="Tiger prompt over 50 denoising steps at a 1,024-token budget, with the patch layout outlined.">
+      <figcaption>Tiger prompt with a 1,024-token budget. Turn on JavaScript to pick a prompt or scrub the steps.</figcaption></figure>
+  </noscript>
+
+  <!-- ---------- viewer 2: budget ---------- -->
+  <h3 class="lead" id="budget-title">One model, any budget</h3>
+  <p class="prose">Drag the budget: the same predicted damage map, allocated at any token budget, with no retraining.</p>
+
+  <div class="viewer" id="budget" role="group" aria-labelledby="budget-title">
+    <div class="v-stage">
+      <div class="v-canvas">
+        <canvas width="960" height="960" role="img" aria-label="Patch layout at the chosen token budget"></canvas>
+        <div class="v-hud" aria-hidden="true"><span class="hud-pct">25% of p16 tokens</span></div>
+        <div class="v-hud v-hud-br" aria-hidden="true"><span>illustrative &middot; PixelDiT image</span></div>
+      </div>
+    </div>
+    <div class="v-panel">
+      <div class="ctl">
+        <span class="ctl-l" id="bu-prompt-l">Prompt</span>
+        <div class="thumbs" role="group" aria-labelledby="bu-prompt-l" data-picker="budget"></div>
+        <p class="sr-only bu-prompt" aria-live="polite"></p>
+      </div>
+      <div class="ctl">
+        <label class="ctl-l" for="bu-slider">Token budget</label>
+        <div class="bigread"><span class="mono bu-b">1,024</span><span class="bu-of">/ 4,096 tokens per step</span></div>
+        <input type="range" id="bu-slider" min="0" max="1000" step="4" value="500">
+        <div class="ticks mono"></div>
+      </div>
+      <div class="ctl">
+        <span class="ctl-l">Image area by patch size</span>
+        <div class="stack" aria-hidden="true"><span class="a"></span><span class="b"></span><span class="c"></span></div>
+        <ul class="shares mono" aria-live="off">
+          <li><span class="sw a"></span>p16 <b data-k="a">0%</b></li>
+          <li><span class="sw b"></span>p32 <b data-k="b">0%</b></li>
+          <li><span class="sw c"></span>p64 <b data-k="c">0%</b></li>
+        </ul>
+        <p class="sr-only bu-live" aria-live="polite"></p>
+      </div>
+    </div>
+  </div>
+  <noscript>
+    <figure class="fig fig-nojs"><img src="static/gif/budget_tiger.gif" width="480" height="480" alt="The allocation rule on the tiger prompt as the token budget sweeps from 256 to 4,096 tokens.">
+      <figcaption>Budget sweep on the tiger prompt. Turn on JavaScript to drag the budget yourself.</figcaption></figure>
+  </noscript>
+</section>
+
+<!-- =============================== results =============================== -->
+<section class="sec sec-band" id="results">
+<div class="wrap">
+  <h2 class="sec-l">Results</h2>
+
+  <h3 class="lead">Full-compute GenEval at &asymp;70% fewer FLOPs</h3>
+  <p class="prose">Compared with temporal patch scheduling (DDiT), which also saves compute with larger patches but uses one patch size for the whole image at each step, at four matched compute tiers.</p>
+
+  <figure class="fig chart-fig">
+    <ul class="c-legend" aria-label="Legend">
+      <li class="me"><i style="--c:#C2255C"></i>MOSAIK</li>
+      <li><i style="--c:#7C5CBF"></i>DDiT</li>
+      <li><i class="dash"></i>PixelDiT, full compute</li>
+    </ul>
+    <div class="chart-grid">
+<svg class="chart" viewBox="0 0 480 290" role="img" aria-label="GenEval ↑">
+<text class="c-title" x="6" y="20">GenEval ↑</text>
+<line class="c-grid" x1="50" x2="370" y1="244.0" y2="244.0"/>
+<text class="c-ax" x="42" y="248.5" text-anchor="end">0.62</text>
+<line class="c-grid" x1="50" x2="370" y1="185.7" y2="185.7"/>
+<text class="c-ax" x="42" y="190.2" text-anchor="end">0.66</text>
+<line class="c-grid" x1="50" x2="370" y1="127.4" y2="127.4"/>
+<text class="c-ax" x="42" y="131.9" text-anchor="end">0.70</text>
+<line class="c-grid" x1="50" x2="370" y1="69.1" y2="69.1"/>
+<text class="c-ax" x="42" y="73.6" text-anchor="end">0.74</text>
+<text class="c-ax" x="77.6" y="264" text-anchor="middle">20%</text>
+<text class="c-ax" x="243.1" y="264" text-anchor="middle">50%</text>
+<text class="c-ax" x="298.3" y="264" text-anchor="middle">60%</text>
+<text class="c-ax" x="353.4" y="264" text-anchor="middle">70%</text>
+<text class="c-axl" x="210.0" y="284" text-anchor="middle">FLOPs saved</text>
+<line class="c-ref" x1="50" x2="370" y1="69.1" y2="69.1"><title>PixelDiT, full compute: 0.74</title></line>
+<g class="c-s" style="--c:#7C5CBF">
+<polyline points="77.6,142.0 243.1,200.3 298.3,200.3 353.4,214.9"/>
+<circle cx="77.6" cy="142.0" r="4"><title>DDiT · 20% FLOPs saved · GenEval 0.69</title></circle>
+<circle cx="243.1" cy="200.3" r="4"><title>DDiT · 50% FLOPs saved · GenEval 0.65</title></circle>
+<circle cx="298.3" cy="200.3" r="4"><title>DDiT · 60% FLOPs saved · GenEval 0.65</title></circle>
+<circle cx="353.4" cy="214.9" r="4"><title>DDiT · 70% FLOPs saved · GenEval 0.64</title></circle>
+</g>
+<g class="c-s c-me" style="--c:#C2255C">
+<polyline points="77.6,69.1 243.1,69.1 298.3,69.1 353.4,69.1"/>
+<circle cx="77.6" cy="69.1" r="5.5"><title>MOSAIK · 20% FLOPs saved · GenEval 0.74</title></circle>
+<circle cx="243.1" cy="69.1" r="5.5"><title>MOSAIK · 50% FLOPs saved · GenEval 0.74</title></circle>
+<circle cx="298.3" cy="69.1" r="5.5"><title>MOSAIK · 60% FLOPs saved · GenEval 0.74</title></circle>
+<circle cx="353.4" cy="69.1" r="5.5"><title>MOSAIK · 70% FLOPs saved · GenEval 0.74</title></circle>
+</g>
+<text class="c-lab c-lab-me" x="367.4" y="73.6">MOSAIK 0.74</text>
+<text class="c-lab" style="fill:#7C5CBF;font-weight:600" x="367.4" y="219.4">DDiT 0.64</text>
+</svg>
+<svg class="chart" viewBox="0 0 480 290" role="img" aria-label="DPG-Bench ↑">
+<text class="c-title" x="6" y="20">DPG-Bench ↑</text>
+<line class="c-grid" x1="50" x2="370" y1="244.0" y2="244.0"/>
+<text class="c-ax" x="42" y="248.5" text-anchor="end">80</text>
+<line class="c-grid" x1="50" x2="370" y1="193.0" y2="193.0"/>
+<text class="c-ax" x="42" y="197.5" text-anchor="end">81</text>
+<line class="c-grid" x1="50" x2="370" y1="142.0" y2="142.0"/>
+<text class="c-ax" x="42" y="146.5" text-anchor="end">82</text>
+<line class="c-grid" x1="50" x2="370" y1="91.0" y2="91.0"/>
+<text class="c-ax" x="42" y="95.5" text-anchor="end">83</text>
+<line class="c-grid" x1="50" x2="370" y1="40.0" y2="40.0"/>
+<text class="c-ax" x="42" y="44.5" text-anchor="end">84</text>
+<text class="c-ax" x="77.6" y="264" text-anchor="middle">20%</text>
+<text class="c-ax" x="243.1" y="264" text-anchor="middle">50%</text>
+<text class="c-ax" x="298.3" y="264" text-anchor="middle">60%</text>
+<text class="c-ax" x="353.4" y="264" text-anchor="middle">70%</text>
+<text class="c-axl" x="210.0" y="284" text-anchor="middle">FLOPs saved</text>
+<line class="c-ref" x1="50" x2="370" y1="65.5" y2="65.5"><title>PixelDiT, full compute: 83.5</title></line>
+<g class="c-s" style="--c:#7C5CBF">
+<polyline points="77.6,85.9 243.1,162.4 298.3,167.5 353.4,203.2"/>
+<circle cx="77.6" cy="85.9" r="4"><title>DDiT · 20% FLOPs saved · DPG 83.1</title></circle>
+<circle cx="243.1" cy="162.4" r="4"><title>DDiT · 50% FLOPs saved · DPG 81.6</title></circle>
+<circle cx="298.3" cy="167.5" r="4"><title>DDiT · 60% FLOPs saved · DPG 81.5</title></circle>
+<circle cx="353.4" cy="203.2" r="4"><title>DDiT · 70% FLOPs saved · DPG 80.8</title></circle>
+</g>
+<g class="c-s c-me" style="--c:#C2255C">
+<polyline points="77.6,60.4 243.1,70.6 298.3,85.9 353.4,116.5"/>
+<circle cx="77.6" cy="60.4" r="5.5"><title>MOSAIK · 20% FLOPs saved · DPG 83.6</title></circle>
+<circle cx="243.1" cy="70.6" r="5.5"><title>MOSAIK · 50% FLOPs saved · DPG 83.4</title></circle>
+<circle cx="298.3" cy="85.9" r="5.5"><title>MOSAIK · 60% FLOPs saved · DPG 83.1</title></circle>
+<circle cx="353.4" cy="116.5" r="5.5"><title>MOSAIK · 70% FLOPs saved · DPG 82.5</title></circle>
+</g>
+<text class="c-lab c-lab-me" x="367.4" y="119.0">MOSAIK 82.5</text>
+<text class="c-lab" style="fill:#7C5CBF;font-weight:600" x="367.4" y="207.7">DDiT 80.8</text>
+</svg>
+    </div>
+  </figure>
+
+  <div class="full-table">
+    <div class="table-wrap" tabindex="0" role="region" aria-label="Main results table (scrolls horizontally)">
+      <table class="results">
+        <caption class="sr-only">DPG-Bench and GenEval at four compute tiers</caption>
+        <thead>
+          <tr>
+            <th scope="col" rowspan="2" class="m">Method</th>
+            <th scope="colgroup" colspan="2">&asymp;20% FLOPs saved</th>
+            <th scope="colgroup" colspan="2">&asymp;50%</th>
+            <th scope="colgroup" colspan="2">&asymp;60%</th>
+            <th scope="colgroup" colspan="2">&asymp;70%</th>
+          </tr>
+          <tr class="sub">
+            <th scope="col">DPG</th><th scope="col">GenEval</th>
+            <th scope="col">DPG</th><th scope="col">GenEval</th>
+            <th scope="col">DPG</th><th scope="col">GenEval</th>
+            <th scope="col">DPG</th><th scope="col">GenEval</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="ref">
+            <th scope="row" class="m">PixelDiT, full compute <span class="n">n = 50</span></th>
+            <td colspan="8" class="refcell">DPG 83.5 &middot; GenEval 0.74</td>
+          </tr>
+          <tr>
+            <th scope="row" class="m">Fewer steps <span class="n">n = 38 / 24 / 19 / 16</span></th>
+            <td>83.3</td><td>0.70</td><td>82.5</td><td>0.67</td><td>81.5</td><td>0.65</td><td>80.6</td><td>0.64</td>
+          </tr>
+          <tr>
+            <th scope="row" class="m">TeaCache</th>
+            <td>83.5</td><td>0.72</td><td>83.5</td><td>0.72</td><td>82.8</td><td>0.71</td><td class="best">82.6</td><td>0.71</td>
+          </tr>
+          <tr>
+            <th scope="row" class="m">TaylorSeer</th>
+            <td class="best">83.7</td><td>0.71</td><td class="best">83.6</td><td>0.71</td><td>82.7</td><td>0.68</td><td>82.4</td><td>0.68</td>
+          </tr>
+          <tr>
+            <th scope="row" class="m">DDiT</th>
+            <td>83.1</td><td>0.69</td><td>81.6</td><td>0.65</td><td>81.5</td><td>0.65</td><td>80.8</td><td>0.64</td>
+          </tr>
+          <tr class="ours">
+            <th scope="row" class="m">MOSAIK (ours)</th>
+            <td>83.6</td><td class="best">0.74</td><td>83.4</td><td class="best">0.74</td><td class="best">83.1</td><td class="best">0.74</td><td>82.5</td><td class="best">0.74</td>
+          </tr>
+          <tr class="tr">
+            <th scope="row" class="m">MOSAIK tokens saved</th>
+            <td colspan="2">25%</td><td colspan="2">59%</td><td colspan="2">74%</td><td colspan="2">83%</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <h3 class="lead">Same prompt and seed at &asymp;60% fewer FLOPs</h3>
+  <figure class="fig">
+    <div class="fig-scroll">
+      <a class="fig-link" href="static/img/fig_qualitative.webp" target="_blank" rel="noopener" aria-label="Open the qualitative comparison at full size">
+        <img src="static/img/fig_qualitative.webp" width="3128" height="1246" loading="lazy"
+             alt="The tiger prompt generated by PixelDiT at full compute, MOSAIK, DDiT, TeaCache, TaylorSeer and fewer steps (19 steps), with a zoomed crop of the face underneath.">
+      </a>
+    </div>
+    <figcaption>PixelDiT is the full-compute reference. Bottom row: zoomed crop.</figcaption>
+  </figure>
+
+  <div class="compare-wrap" id="compare" role="group" aria-labelledby="compare-title">
+    <div class="compare-ctl">
+      <h3 class="lead" id="compare-title">Compare with full compute</h3>
+      <div class="thumbs" role="group" aria-label="Prompt" data-picker="compare"></div>
+      <div class="seg-wrap">
+        <span class="seg-l mono" id="cmp-tier-l">fewer FLOPs</span>
+        <div class="seg seg4" role="group" aria-labelledby="cmp-tier-l">
+          <button type="button" data-tier="mild" aria-pressed="false">&asymp;20%</button>
+          <button type="button" data-tier="balanced" aria-pressed="false">&asymp;50%</button>
+          <button type="button" data-tier="quarter" aria-pressed="true">&asymp;60%</button>
+          <button type="button" data-tier="headline" aria-pressed="false">&asymp;70%</button>
+        </div>
+      </div>
+      <p class="sr-only cmp-live" aria-live="polite"></p>
+    </div>
+    <div class="compare" style="--pos:50%">
+      <img class="cmp-b" src="static/img/finals/wolf_quarter.webp" width="768" height="768" alt="" loading="lazy">
+      <img class="cmp-a" src="static/img/finals/wolf_p16.webp" width="768" height="768" alt="" loading="lazy">
+      <div class="cmp-line" aria-hidden="true"><span></span></div>
+      <span class="cmp-tag l mono" aria-hidden="true">PixelDiT &middot; 4,096 tok</span>
+      <span class="cmp-tag r mono" aria-hidden="true">MOSAIK &middot; 1,024-token budget</span>
+      <input type="range" class="cmp-range" min="0" max="100" step="1" value="50" aria-label="Divider position: left shows PixelDiT, right shows MOSAIK">
+    </div>
+    <p class="compare-note">Drag the divider. The budget applies to MOSAIK's steps 2&ndash;50 (step 1 runs at full p16); PixelDiT uses 4,096 tokens at every step. Same seed.</p>
+  </div>
+
+  <h3 class="lead">Placement is the gain</h3>
+  <p class="prose">Same model, same token budget, only the layout differs: damage-guided layouts beat random ones at every tier.</p>
+  <figure class="fig chart-fig">
+    <div class="chart-grid">
+<svg class="chart" viewBox="0 0 480 290" role="img" aria-label="GenEval ↑">
+<text class="c-title" x="6" y="20">GenEval ↑</text>
+<line class="c-grid" x1="50" x2="370" y1="244.0" y2="244.0"/>
+<text class="c-ax" x="42" y="248.5" text-anchor="end">0.68</text>
+<line class="c-grid" x1="50" x2="370" y1="193.0" y2="193.0"/>
+<text class="c-ax" x="42" y="197.5" text-anchor="end">0.70</text>
+<line class="c-grid" x1="50" x2="370" y1="142.0" y2="142.0"/>
+<text class="c-ax" x="42" y="146.5" text-anchor="end">0.72</text>
+<line class="c-grid" x1="50" x2="370" y1="91.0" y2="91.0"/>
+<text class="c-ax" x="42" y="95.5" text-anchor="end">0.74</text>
+<line class="c-grid" x1="50" x2="370" y1="40.0" y2="40.0"/>
+<text class="c-ax" x="42" y="44.5" text-anchor="end">0.76</text>
+<text class="c-ax" x="77.6" y="264" text-anchor="middle">20%</text>
+<text class="c-ax" x="243.1" y="264" text-anchor="middle">50%</text>
+<text class="c-ax" x="298.3" y="264" text-anchor="middle">60%</text>
+<text class="c-ax" x="353.4" y="264" text-anchor="middle">70%</text>
+<text class="c-axl" x="210.0" y="284" text-anchor="middle">FLOPs saved</text>
+<g class="c-s" style="--c:#8C95A5">
+<polyline points="77.6,142.0 243.1,142.0 298.3,167.5 353.4,193.0"/>
+<circle cx="77.6" cy="142.0" r="4"><title>random · 20% FLOPs saved · GenEval 0.72</title></circle>
+<circle cx="243.1" cy="142.0" r="4"><title>random · 50% FLOPs saved · GenEval 0.72</title></circle>
+<circle cx="298.3" cy="167.5" r="4"><title>random · 60% FLOPs saved · GenEval 0.71</title></circle>
+<circle cx="353.4" cy="193.0" r="4"><title>random · 70% FLOPs saved · GenEval 0.70</title></circle>
+</g>
+<g class="c-s c-me" style="--c:#C2255C">
+<polyline points="77.6,91.0 243.1,91.0 298.3,91.0 353.4,91.0"/>
+<circle cx="77.6" cy="91.0" r="5.5"><title>damage-guided · 20% FLOPs saved · GenEval 0.74</title></circle>
+<circle cx="243.1" cy="91.0" r="5.5"><title>damage-guided · 50% FLOPs saved · GenEval 0.74</title></circle>
+<circle cx="298.3" cy="91.0" r="5.5"><title>damage-guided · 60% FLOPs saved · GenEval 0.74</title></circle>
+<circle cx="353.4" cy="91.0" r="5.5"><title>damage-guided · 70% FLOPs saved · GenEval 0.74</title></circle>
+</g>
+<text class="c-lab c-lab-me" x="367.4" y="95.5">damage-guided</text>
+<text class="c-lab" x="367.4" y="197.5">random</text>
+</svg>
+<svg class="chart" viewBox="0 0 480 290" role="img" aria-label="DPG-Bench ↑">
+<text class="c-title" x="6" y="20">DPG-Bench ↑</text>
+<line class="c-grid" x1="50" x2="370" y1="244.0" y2="244.0"/>
+<text class="c-ax" x="42" y="248.5" text-anchor="end">81</text>
+<line class="c-grid" x1="50" x2="370" y1="176.0" y2="176.0"/>
+<text class="c-ax" x="42" y="180.5" text-anchor="end">82</text>
+<line class="c-grid" x1="50" x2="370" y1="108.0" y2="108.0"/>
+<text class="c-ax" x="42" y="112.5" text-anchor="end">83</text>
+<line class="c-grid" x1="50" x2="370" y1="40.0" y2="40.0"/>
+<text class="c-ax" x="42" y="44.5" text-anchor="end">84</text>
+<text class="c-ax" x="77.6" y="264" text-anchor="middle">20%</text>
+<text class="c-ax" x="243.1" y="264" text-anchor="middle">50%</text>
+<text class="c-ax" x="298.3" y="264" text-anchor="middle">60%</text>
+<text class="c-ax" x="353.4" y="264" text-anchor="middle">70%</text>
+<text class="c-axl" x="210.0" y="284" text-anchor="middle">FLOPs saved</text>
+<g class="c-s" style="--c:#8C95A5">
+<polyline points="77.6,108.0 243.1,169.2 298.3,169.2 353.4,203.2"/>
+<circle cx="77.6" cy="108.0" r="4"><title>random · 20% FLOPs saved · DPG 83</title></circle>
+<circle cx="243.1" cy="169.2" r="4"><title>random · 50% FLOPs saved · DPG 82.1</title></circle>
+<circle cx="298.3" cy="169.2" r="4"><title>random · 60% FLOPs saved · DPG 82.1</title></circle>
+<circle cx="353.4" cy="203.2" r="4"><title>random · 70% FLOPs saved · DPG 81.6</title></circle>
+</g>
+<g class="c-s c-me" style="--c:#C2255C">
+<polyline points="77.6,67.2 243.1,80.8 298.3,101.2 353.4,142.0"/>
+<circle cx="77.6" cy="67.2" r="5.5"><title>damage-guided · 20% FLOPs saved · DPG 83.6</title></circle>
+<circle cx="243.1" cy="80.8" r="5.5"><title>damage-guided · 50% FLOPs saved · DPG 83.4</title></circle>
+<circle cx="298.3" cy="101.2" r="5.5"><title>damage-guided · 60% FLOPs saved · DPG 83.1</title></circle>
+<circle cx="353.4" cy="142.0" r="5.5"><title>damage-guided · 70% FLOPs saved · DPG 82.5</title></circle>
+</g>
+<text class="c-lab c-lab-me" x="367.4" y="146.5">damage-guided</text>
+<text class="c-lab" x="367.4" y="207.7">random</text>
+</svg>
+    </div>
+  </figure>
+
+  <div class="duo duo-even">
+    <div>
+  <h3 class="lead">MOSAIK composes with caching</h3>
+  <p class="prose">Caching saves compute across time, MOSAIK across space. Together they keep GenEval at 0.73 even at &asymp;80% fewer FLOPs.</p>
+  <div class="table-wrap cache-wrap" tabindex="0" role="region" aria-label="Caching alone vs. caching plus MOSAIK">
+    <table class="cache">
+      <caption class="sr-only">GenEval and DPG-Bench for caching alone and caching plus MOSAIK</caption>
+      <thead>
+        <tr><th scope="col"></th><th scope="col">&asymp;70% FLOPs saved</th><th scope="col">&asymp;80% FLOPs saved</th></tr>
+      </thead>
+      <tbody>
+        <tr><th scope="row">TeaCache</th>
+          <td><span class="ge">0.71 <i>&rarr;</i> <b>0.74</b></span><span class="dpg">DPG 82.6 &rarr; 82.8</span></td>
+          <td><span class="ge">0.67 <i>&rarr;</i> <b>0.73</b></span><span class="dpg">DPG 80.7 &rarr; 82.2</span></td></tr>
+        <tr><th scope="row">TaylorSeer</th>
+          <td><span class="ge">0.68 <i>&rarr;</i> <b>0.74</b></span><span class="dpg">DPG 82.4 &rarr; 82.8</span></td>
+          <td><span class="ge">0.43 <i>&rarr;</i> <b>0.73</b></span><span class="dpg">DPG 72.9 &rarr; 82.2</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">GenEval, caching alone &rarr; <b>caching + MOSAIK</b>.</p>
+    </div>
+    <div>
+  <h3 class="lead">The savings hold on hardware</h3>
+  <p class="prose">At the &asymp;70% tier on one NVIDIA GB10, the DiT blocks run 5.40&times; faster; the fixed pixel decoder and text stream set a 4.4&nbsp;s floor.</p>
+  <div class="lat" role="img" aria-label="Measured time per 1024 squared image at the 70 percent budget: end to end 21.8 seconds for PixelDiT versus 8.4 seconds for MOSAIK; DiT blocks 16.8 versus 3.1 seconds.">
+    <div class="lat-row"><span class="lat-l">end to end</span><span class="lat-bars"><i class="base" style="--w:100%"><em>21.8 s</em></i><i class="ours" style="--w:38.5%"><em>8.4 s</em></i></span></div>
+    <div class="lat-row"><span class="lat-l">DiT blocks</span><span class="lat-bars"><i class="base" style="--w:77.1%"><em>16.8 s</em></i><i class="ours" style="--w:14.2%"><em>3.1 s</em></i></span></div>
+    <div class="lat-key"><span><i class="k base"></i>PixelDiT, p16</span><span><i class="k ours"></i>MOSAIK, &asymp;70% tier</span><span>predictor: 1.63&nbsp;M params, 2.0&nbsp;ms/step &middot; peak memory 9.7&nbsp;GB for both</span></div>
+  </div>
+    </div>
+  </div>
+</div>
+</section>
+
+</main>
+
+<script src="static/js/data_viewers.js"></script>
+<script src="static/js/main.js"></script>
+
+</body></html>
